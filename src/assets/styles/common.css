@@ -1,0 +1,17 @@
+.flex-box{display:flex}
+.flex-1{flex: 1}
+.c-cen{text-align: center}
+.c-left{text-align: left}
+.c-right{text-align: right}
+.c-hide{display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis}
+.c-hide-2{
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;}
+
+.c-white{background: #fff}
+.c-white-color{color: #fff}
