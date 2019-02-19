@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../css/aui/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+		   .login_bg{
+		       	background-image: url(../image/login_top_bg.jpg);
+		       	width: 100%;
+		       	height: 13vw;
+		       	margin-top: 5rem;
+		       	background-position: center;
+		       	background-repeat: no-repeat;
+		       	background-size: auto 100%;
+	       }
+	       .login_box{
+	       		
+	       		padding: 3rem 1rem;
+	       }
+	       .login_box input{
+	       	width: 100%;
+	       	height: 4rem;
+	       	font-size: 1.3rem;
+	       	line-height: 4rem;
+	       	overflow: hidden;
+	       	margin-bottom: 1rem;
+	       	outline: none;
+	       	border: 1px solid #C5C5C5;
+	       	padding-left: 1.5rem;
+	       	box-sizing: border-box;
+	       }
+	       .input_box{
+	       	
+	       }
+	       #login_btn{
+	       	background-color: #1E75D6;
+	       	border: none;
+	       	color: #fff;
+	       }
+	       #reg_btn{
+	       	position: relative;
+	       	float: right;
+	       margin-right: 1rem;
+	       	font-size: 1rem;
+	       	color: #8B8B8B;
+	       }
+	       
+	       /*登录底部*/
+	      .login_bottom{
+	      	text-align: center;
+	      	color: #151515;
+	      }
+	      .third_login span{
+	      	font-size: 2.2rem;
+	      	display: inline-block;
+	      	width: 3rem;
+	      	line-height: 3rem;
+	      	border-radius: 50%;
+			height: 3rem;      	
+			margin-bottom: 1rem;
+	      }
+	      .third_login i{
+	      	color: #fff;
+	      }
+	      .qq_btn{
+	      	background-color: #4DAFEA;
+	      }
+	      .wx_btn{
+	      	background-color: #3EB135;
+	      }
+	      .tips_p{
+	      	margin-bottom: 1rem;
+	      	color: #8B8B8B;
+	      }
+	      
+	      .input_box input{
+	      	-webkit-appearance: none;
+	      }
+	      
+	      #out_login_btn{
+	      	width: 50%;
+	      	height: 2.5rem;
+	      	border: 1px solid #999;
+	      	color: #999;
+	      	border-radius: 5px;
+	      	text-align: center;
+	      	margin: 0.8rem 0;
+	      	margin-left: 25%;
+	      	line-height: 2.5rem;
+	      	
+	      }
+	      .top_title_box{
+	      	width: 100%;
+	      	background-color: #1E75D6;
+	      	height: 60px;
+	      	/*padding-top: 20px;*/
+	      }
+	      .top_title_box span{
+	      	height: 30px;
+	      	width: 30px;
+	      	text-align: center;
+	      	background-color: rgba(0,0,0,0.3);
+	      	border-radius: 50%;
+	      	line-height: 30px;
+	      	color: #fff;
+	      	margin-top: 20px;
+	      	margin-left: 10px;
+	      }
+		</style>		
+		<title>跳转登录页</title>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+					<div class="top_title_box">
+						<span onclick="api.closeWin()"><i class="icon-zuo"></i></span>
+					</div>
+				<div id="login">
+					<div class="login_bg">
+						
+					</div>
+					<div class="login_box">
+						<div class="input_box">
+							<input type="text" name="username" id="users" placeholder="用户名" value=""/>
+							<input type="password" name="pwd" id="pwd" value="" placeholder="登录密码"/>
+							<input type="button" name="login_btn" id="login_btn" value="登录" onclick="login()"/>
+							<span id="reg_btn" onclick="op_my_reg_def()">注册新用户</span>
+						</div>
+					</div>
+					<div class="login_bottom">
+						<p class="tips_p">社交账号登录</p>
+						<div class="flex-box third_login">
+							<div class="flex-1">
+								<span onclick="qq_login()" class="qq_btn"><i class="icon-qq"></i></span>
+								<p>QQ登录</p>
+							</div>
+							<div class="flex-1">
+								<span onclick="wx_login()" class="wx_btn"><i class="icon-weixin"></i></span>
+								<p>微信登录</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../script/config.js" type="text/javascript" charset="utf-8"></script>
+	   	<script src="../script/laytpl.js" type="text/javascript" charset="utf-8"></script>
+	   	<script src="../script/md5-min.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="../script/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="../script/function.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="../script/f4_op.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="../script/api.js" type="text/javascript" charset="utf-8"></script>
+	    <script type="text/javascript">
+	    	apiready=function  () {
+//	    		 $api.fixStatusBar( $api.dom('header') );
+			        api.setStatusBarStyle({
+			            style: 'light',
+			            color: 'rgba(0,0,0,0)'
+			        });
+	    	}
+	    	
+	    	
+	    	
+	    	    	
+//  	登录操作
+    	function login () {
+    		var users = mytrim($('#users').val(),'g') ;
+    		var pwd = mytrim($('#pwd').val(),'g');
+    		var deviceid = api.deviceId;
+    		if(users==''){
+    			return tips_msg('用户名不可为空');
+    		}
+    		if(pwd==''){
+    			return tips_msg('请输入密码');
+    		} 
+    		var datas = {
+					loginname : users,
+					password : pwd,
+					deviceid:deviceid,
+//					openid:'opYwBwysqpMd2UQtehytXAWUbizU',
+				};
+				var url = 'user/v1/login/index';
+				myajax(url,mysign(datas),function  (ret,err) {
+					if(ret){
+						console.log(JSON.stringify(ret));
+						if (ret.status==false) {
+							return tips_msg(ret.msg);
+						} else{
+							var regx = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/;
+							if(!regx.test(ret.data.userpic)){//路径是相对路径则加上域名
+								ret.data.userpic = wd_webhost+ret.data.userpic;
+							}
+							
+							//登录成功  存储数据
+							$api.setStorage('wd_u_token',ret.data.token);//token
+							$api.setStorage('wd_u_nickname',ret.data.nickname);//昵称
+							$api.setStorage('wd_u_phone',ret.data.phone);//手机号
+							$api.setStorage('wd_u_groupid',ret.data.groupid);//群组id
+							$api.setStorage('wd_u_lastip',ret.data.lastip);//上次登录ip
+							$api.setStorage('wd_u_userpic',ret.data.userpic);//用户头像
+							$api.setStorage('wd_u_about',ret.data.about);//签名
+							$api.setStorage('wd_u_auth_status',ret.data.auth_status);//认证状态
+							
+							var jsfuns = 'reload_f ()';
+							api.execScript({
+							    name: 'root',
+							    frameName: 'frame4',
+							    script: jsfuns,
+							});
+							
+//							登录成功关闭当前页面
+							mytoast.center('登录成功');
+							api.closeWin();
+						}
+					}else{
+						console.log(JSON.stringify(err));
+						return tips_msg();
+					}
+				});
+    	}
+    	
+//  	微信登录
+    	function wx_login () {
+    		var wx = api.require('wx');
+			wx.auth({
+			    apiKey: 'wxa5bd3488a58a790c'
+			}, function(ret, err) {
+			    if (ret.status) {
+//			        alert(JSON.stringify(ret));
+					var code =  ret.code;
+					wx.getToken({
+					    apiKey: '',
+					    apiSecret: '',
+					    code: code
+					}, function(ret, err) {
+					    if (ret.status) {
+					        console.log(JSON.stringify(ret));
+					        loginWithwxOpId (ret.openId);
+					        
+					    } else {
+					        alert('登录失败');
+					    }
+					});
+			    } else {
+			        alert(JSON.stringify(err));
+			    }
+			});
+    	}
+    	
+		function loginWithwxOpId (openid) {
+			logindatas = {
+				deviceid:api.deviceId,
+				openid:openid,
+				app:'wx',
+			}
+			var url = 'user/v1/login/index';
+			myajax(url,mysign(logindatas),function  (rets,errs) {
+				if (rets) {
+					console.log(JSON.stringify(rets))
+					if (rets.status) {
+								var regx = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/;
+								if(!regx.test(rets.data.userpic)){//路径是相对路径则加上域名
+									rets.data.userpic = wd_webhost+rets.data.userpic;
+								}
+									
+						//登录成功  存储数据
+								$api.setStorage('wd_u_token',rets.data.token);//token
+								$api.setStorage('wd_u_nickname',rets.data.nickname);//昵称
+								$api.setStorage('wd_u_phone',rets.data.phone);//手机号
+								$api.setStorage('wd_u_groupid',rets.data.groupid);//群组id
+								$api.setStorage('wd_u_lastip',rets.data.lastip);//上次登录ip
+								$api.setStorage('wd_u_userpic',rets.data.userpic);//用户头像
+								$api.setStorage('wd_u_about',rets.data.about);//签名
+								$api.setStorage('wd_u_auth_status',rets.data.auth_status);//认证状态
+								
+								
+								var jsfuns = 'reload_f ()';
+								api.execScript({
+								    name: 'root',
+								    frameName: 'frame4',
+								    script: jsfuns,
+								});
+								
+								//登录成功关闭当前页面
+								mytoast.center('登录成功');
+								api.closeWin();
+					}else{
+						op_my_reg_new (logindatas.openid,logindatas.app);
+		//					return tips_msg(rets.msg);
+					}
+				} else{
+					console.log(JSON.stringify(errs))
+				}
+			})
+			
+		}
+
+
+
+		function loginWithqqOpId (openid) {
+			logindatas = {
+				deviceid:api.deviceId,
+				openid:openid,
+				app:'qq',
+			}
+			var url = 'user/v1/login/index';
+			myajax(url,mysign(logindatas),function  (rets,errs) {
+				if (rets) {
+					console.log(JSON.stringify(rets))
+					if (rets.status) {
+								var regx = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/;
+								if(!regx.test(rets.data.userpic)){//路径是相对路径则加上域名
+									rets.data.userpic = wd_webhost+rets.data.userpic;
+								}
+									
+						//登录成功  存储数据
+								$api.setStorage('wd_u_token',rets.data.token);//token
+								$api.setStorage('wd_u_nickname',rets.data.nickname);//昵称
+								$api.setStorage('wd_u_phone',rets.data.phone);//手机号
+								$api.setStorage('wd_u_groupid',rets.data.groupid);//群组id
+								$api.setStorage('wd_u_lastip',rets.data.lastip);//上次登录ip
+								$api.setStorage('wd_u_userpic',rets.data.userpic);//用户头像
+								$api.setStorage('wd_u_about',rets.data.about);//签名
+								$api.setStorage('wd_u_auth_status',rets.data.auth_status);//认证状态
+								
+								var jsfuns = 'reload_f ()';
+								api.execScript({
+								    name: 'root',
+								    frameName: 'frame4',
+								    script: jsfuns,
+								});
+								
+								//登录成功关闭当前页面
+								mytoast.center('登录成功');
+								api.closeWin();
+					}else{
+						op_my_reg_new (logindatas.openid,logindatas.app);
+		//					return tips_msg(rets.msg);
+					}
+				} else{
+					console.log(JSON.stringify(errs))
+				}
+			})	
+		}
+
+
+
+
+    	
+//  	QQ登录
+		function qq_login () {
+			var qq = api.require('qq');
+			qq.login(function(ret, err) {
+			    //授权登录
+			    
+			    if(ret.status){
+//			    	获取用户信息
+				    console.log(ret.openId +'----'+ ret.accessToken);
+				    var opid = ret.openId;
+				    var app = 'qq';
+			    	qq.getUserInfo(function(ret, err) {
+					    if (ret.status) {
+					    	
+							loginWithqqOpId (opid);
+		
+					    } else {
+					        api.alert({ msg: err.msg });
+					    }
+					});
+					
+					
+					
+			    	
+			    }else{
+			    	console.log(JSON.stringify(err))
+			    }
+			    
+			    
+			});
+		}    	
+	    </script>
+	</body>
+</html>
